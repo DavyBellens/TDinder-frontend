@@ -28,17 +28,13 @@ const ImageUpload: React.FC<Props> = ({ callBack }: Props) => {
         //   setFilename(result.file.filename);
         //   callBack(result.url);
         // }
-        console.log(file);
-        console.log(typeof file);
-        console.log(file.name);
 
-        // const response = await FileService.uploadFile(file);
-        // if (response.ok) {
-        //   const result = await response.json();
-        //   setFileUploaded(true);
-        //   setFilename(result.url);
-        //   callBack(result.url);
-        // }
+        const response = await FileService.uploadFile(file.name, file);
+        if (response) {
+          setFileUploaded(true);
+          setFilename(file.name);
+          callBack(response);
+        }
       } catch (error) {
         console.log(error);
       }
