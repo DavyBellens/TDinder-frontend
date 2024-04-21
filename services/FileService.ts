@@ -1,14 +1,35 @@
 import { getToken } from "@/util/token";
-import blob from "@vercel/blob";
+import { put } from "@vercel/blob";
 
-const uploads = "/uploads";
+const baseUrl = process.env.NEXT_PUBLIC_API_URL + "/files";
 
-const uploadFile = async (file: FormData) => {
-  const {url} = await blob.put(`${uploads}/${file.get('filename')}`, URL.createObjectURL(file), {access: "public"})
+const getFile = async (fileName: string) => {
+  try {
+    const token = getToken();
+    const res = await fetch(`${baseUrl}/${fileName}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.blob();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const uploadFile = async (filename: string, file: Blob) => {
   const token = getToken();
-  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/files", {
-    method: "POST",
-    body: file,
+  if (token) {
+    const { url } = await put(process.env.BLOB_PICTURES_DIRECTORY + filename, file, { access: "public" });
+    return url;
+  }
+};
+
+const deleteFile = async (filename: string) => {
+  const token = getToken();
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/files/" + filename, {
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -16,11 +37,8 @@ const uploadFile = async (file: FormData) => {
   return response;
 };
 
-const deleteFile = async (filename: string) => {
-  const {url} = await blob.del(`${uploads}/${filename}`)
-};
-
 const FileService = {
+  getFile,
   uploadFile,
   deleteFile,
 };
