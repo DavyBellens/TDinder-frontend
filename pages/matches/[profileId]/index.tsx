@@ -1,6 +1,7 @@
 import Back from "@/components/Back";
 import Footer from "@/components/Footer";
 import AuthError from "@/components/authorization/AuthError";
+import Header from "@/components/header/Header";
 import ProfileId from "@/components/profiles/ProfileId";
 import FileService from "@/services/FileService";
 import ProfileService from "@/services/ProfileService";
@@ -74,20 +75,23 @@ const ProfileIdPage: React.FC = () => {
       <Head>
         <title>Profile info page </title>
       </Head>
-      {isLoading && <div>Loading...</div>}
-      {error && <div>{error}</div>}
-      {userProfile ? (
-        profile &&
-        images && (
-          <div className="app">
-            <Back message="Go back" style="bg-white bg-opacity-50 m-5 p-2 rounded-xl font-bold text-center w-max" />
-            <ProfileId profile={profile} images={images} />
-            <Footer />
-          </div>
-        )
-      ) : (
-        <AuthError />
-      )}
+      <main className="flex flex-col items-center">
+        <Header isLoggedIn={true} gender={profile.gender} preference={profile.preference} />
+        {isLoading && <div>Loading...</div>}
+        {error && <div>{error}</div>}
+        {userProfile ? (
+          profile &&
+          images && (
+            <div className="app">
+              <Back message="Go back" style="bg-white bg-opacity-50 m-5 p-2 rounded-xl font-bold text-center w-max" />
+              <ProfileId profile={profile} images={images} />
+            </div>
+          )
+        ) : (
+          <AuthError />
+        )}
+        <Footer />
+      </main>
     </>
   );
 };

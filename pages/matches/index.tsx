@@ -47,32 +47,34 @@ const Profiles: React.FC = () => {
       <Head>
         <title>Profiles</title>
       </Head>
-      <Header isLoggedIn={!!profile} gender={profile && profile.gender} preference={profile && profile.preference} />
-      {error && <div>{error}</div>}
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : profile ? (
-        data ? (
-          data.length > 0 ? (
-            <ProfilesOverviewTable profiles={data} />
+      <main className="flex flex-col items-center">
+        <Header isLoggedIn={!!profile} gender={profile && profile.gender} preference={profile && profile.preference} />
+        {error && <div>{error}</div>}
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : profile ? (
+          data ? (
+            data.length > 0 ? (
+              <ProfilesOverviewTable profiles={data} />
+            ) : (
+              <div className="flex flex-col items-center">
+                <p className="mt-5 p-5 text-center">You don't have any matches yet</p>
+              </div>
+            )
           ) : (
-            <div className="flex flex-col items-center">
-              <p className="p-5 text-center">You don't have any matches yet</p>
+            <div>
+              <p>Loading...</p>
             </div>
           )
         ) : (
-          <div>
-            <p>Loading...</p>
+          <div className="flex flex-col items-center">
+            <p className="p-5 text-center">Please login or create an account before continuing</p>
+            <a href="/login" className="bg-white bg-opacity-50 mt-10 p-2 rounded-xl font-bold text-center">
+              Sign in/up
+            </a>
           </div>
-        )
-      ) : (
-        <div className="flex flex-col items-center">
-          <p className="p-5 text-center">Please login or create an account before continuing</p>
-          <a href="/login" className="bg-white bg-opacity-50 mt-10 p-2 rounded-xl font-bold text-center">
-            Sign in/up
-          </a>
-        </div>
-      )}
+        )}
+      </main>
       <Footer />
     </div>
   );

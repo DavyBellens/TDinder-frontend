@@ -10,7 +10,7 @@ type Props = {
 
 const Header: React.FC<Props> = ({ isLoggedIn, gender, preference }: Props) => {
   return (
-    <header role="header" className=" gap-5 items-center flex-col w-full">
+    <header role="header" className="gap-5 items-center flex-col w-full justify-center">
       <Nav isLoggedIn={isLoggedIn} gender={gender} preference={preference} />
     </header>
   );

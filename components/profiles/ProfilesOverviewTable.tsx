@@ -27,7 +27,7 @@ const ProfilesOverviewTable: React.FC<Props> = ({ profiles }: Props) => {
     getImages(profiles);
   }, []);
   return (
-    <div className="app m-2">
+    <div className="m-2">
       {profiles &&
         images &&
         profiles.map((p, index) => {
@@ -42,7 +42,7 @@ const ProfilesOverviewTable: React.FC<Props> = ({ profiles }: Props) => {
                 width={50}
                 height={50}
                 alt={"profile picture of profile with id " + p.id}
-                className="rounded-full row-span-2 row-start-1 m-auto"
+                className="rounded-full row-span-2 row-start-1 m-auto ml-1"
               />
               <div className="grid text-black text-opacity-70 font-bold col-span-3 m-1 grid-rows-2">
                 <span className={p.name.length > 15 ? "text-sm" : "text-lg"}>{p.name}</span>

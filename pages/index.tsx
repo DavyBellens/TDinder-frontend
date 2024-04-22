@@ -69,11 +69,11 @@ const Home: React.FC = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col items-center">
+      <main className="flex flex-col items-center mt-0">
         {profile ? (
           <>
             <Header isLoggedIn={true} gender={profile.gender} preference={profile.preference} />
-            {profile.pictures.length > 0 && possibleMatches ? (
+            {possibleMatches && (
               <>
                 {match ? (
                   <div className="flex mt-24 ">
@@ -118,16 +118,6 @@ const Home: React.FC = () => {
                     )}
                   </ul>
                 )}
-              </>
-            ) : (
-              <>
-                <p className="p-5 text-center">Before you start, we gotta upload some pictures first</p>
-                <a
-                  href={profile.id && "/matches/" + profile.id + "/addPictures"}
-                  className="bg-white bg-opacity-50 mt-10 p-2 rounded-xl font-bold"
-                >
-                  Start
-                </a>
               </>
             )}
           </>

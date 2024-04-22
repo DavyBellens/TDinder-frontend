@@ -100,7 +100,7 @@ const ProfileCreateForm: React.FC<Props> = ({ existingUser }: Props) => {
           </>
         )
       ) : stage === 6 ? (
-        <div className="flex flex-col items-center p-5 pt-20 pb-10 w-screen">
+        <div className="flex flex-col items-center p-5 pt-20 pb-10 w-full">
           <div className="text-xl pb-20 text-center font-bold">Please be patient while we create your profile</div>
           {statusMessages && (
             <ul>

@@ -9,7 +9,7 @@ type Props = {
 
 const Nav: React.FC<Props> = ({ isLoggedIn, gender, preference }: Props) => {
   return (
-    <nav className="grid grid-cols-3 p-3" role="navigation">
+    <nav role="navigation" className={isLoggedIn ? "grid grid-cols-3 p-3 text-center" : " p-3"}>
       {isLoggedIn ? (
         <>
           <Link
@@ -35,7 +35,7 @@ const Nav: React.FC<Props> = ({ isLoggedIn, gender, preference }: Props) => {
           </Link>
         </>
       ) : (
-        <Link href={"/login"} className="text-xl text-white flex items-center ">
+        <Link href={"/login"} className="text-xl text-white flex justify-center items-center text-center">
           Login
         </Link>
       )}

@@ -30,11 +30,11 @@ const OptionsPage: React.FC = () => {
   return (
     <div className="app">
       <Head>
-        <title>Home</title>
+        <title>Options</title>
         <meta name="viewport" content="width=device-with, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className="flex flex-col items-center">
         <Header isLoggedIn={!!profile} gender={profile && profile.gender} preference={profile && profile.preference} />
         {profile ? (
           <>
