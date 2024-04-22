@@ -18,22 +18,14 @@ const ImageUpload: React.FC<Props> = ({ callBack }: Props) => {
   const uploadPicture = async () => {
     if (!fileUploaded) {
       try {
-        // Make this use Blob instead of FormData
-        // const formData = new FormData();
-        // formData.append("file", file);
-        // const response = await FileService.uploadFile(formData);
-        // if (response.ok) {
-        //   const result = await response.json();
-        //   setFileUploaded(true);
-        //   setFilename(result.file.filename);
-        //   callBack(result.url);
-        // }
-
-        const response = await FileService.uploadFile(file.name, file);
-        if (response) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const response = await FileService.uploadFile(formData);
+        if (response.ok) {
+          const result = await response.json();
           setFileUploaded(true);
-          setFilename(file.name);
-          callBack(response);
+          setFilename(result.file.filename);
+          callBack(result.url);
         }
       } catch (error) {
         console.log(error);

@@ -1,5 +1,4 @@
 import { getToken } from "@/util/token";
-import { put } from "@vercel/blob";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL + "/files";
 
@@ -18,12 +17,16 @@ const getFile = async (fileName: string) => {
   }
 };
 
-const uploadFile = async (filename: string, file: Blob) => {
+const uploadFile = async (file: FormData) => {
   const token = getToken();
-  if (token) {
-    const { url } = await put(process.env.BLOB_PICTURES_DIRECTORY + filename, file, { access: "public" });
-    return url;
-  }
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/files", {
+    method: "POST",
+    body: file,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
 };
 
 const deleteFile = async (filename: string) => {
