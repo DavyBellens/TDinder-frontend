@@ -76,7 +76,7 @@ const ProfileIdPage: React.FC = () => {
         <title>Profile info page </title>
       </Head>
       <main className="flex flex-col items-center">
-        <Header isLoggedIn={true} gender={profile.gender} preference={profile.preference} />
+        <Header isLoggedIn={!!profile} gender={profile && profile.gender} preference={profile && profile.preference} />
         {isLoading && <div>Loading...</div>}
         {error && <div>{error}</div>}
         {userProfile ? (
