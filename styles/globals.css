@@ -144,3 +144,14 @@ input[type="number"] {
     color-scheme: dark;
   }
 }
+
+@media (min-width: 400px) {
+  header {
+    width: 400px;
+    margin: auto;
+  }
+  body {
+    width: 400px;
+    margin: auto;
+  }
+}
