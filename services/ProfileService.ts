@@ -67,7 +67,7 @@ const createProfile = async (
       gender,
       preference: preference === "OTHER/SECRET" ? "OTHER" : preference,
       socials,
-      pictures: [],
+      pictures: ["default-profilePicture.jpg", "default-profilePicture.jpg"],
     }),
   });
   return await res.json();
@@ -105,7 +105,7 @@ const updateProfile = async (
       gender,
       preference: preference === "OTHER/SECRET" ? "OTHER" : preference,
       socials,
-      pictures: pictures ? pictures : ["default-profilePicture.jpg"],
+      pictures,
     }),
   });
   return await res.json();
