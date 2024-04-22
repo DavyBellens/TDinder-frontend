@@ -1,7 +1,5 @@
+import FileService from "@/services/FileService";
 import { BackendProfile } from "@/types";
-import default_profile_picture from "/public/images/default-profilePicture.jpg";
-import picture_of_me1 from "/public/images/foto-van-mezelf.jpg";
-import picture_of_me2 from "/public/images/my_gf_and_me.jpg";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -10,9 +8,37 @@ type Props = {
 
 const MatchProfile: React.FC<Props> = ({ profile }: Props) => {
   const [index, setIndex] = useState<number>(0);
-  const [images, setImages] = useState<any[]>([default_profile_picture.src, default_profile_picture.src]);
-  const [selectedImage, setSelectedImage] = useState<0 | 1>(0);
+  const [images, setImages] = useState<any[]>([]);
+  const [selectedImage, setSelectedImage] = useState<any>();
 
+  const getImages = async () => {
+    if (profile) {
+      if (profile.pictures.length > 0) {
+        try {
+          const pictures = await Promise.all(
+            profile.pictures.map(async (p) => {
+              const i = await FileService.getFile(p);
+              if (i) return URL.createObjectURL(i);
+            })
+          );
+          if (pictures) {
+            setImages(pictures);
+            setSelectedImage(pictures[0]);
+          }
+        } catch (error) {
+          console.log(error);
+          try {
+          } catch (error) {
+            const pictures = profile.pictures.map(
+              async (_p) => await import("/public/images/default-profilePicture.jpg")
+            );
+            setImages(pictures);
+            setSelectedImage(pictures[0]);
+          }
+        }
+      }
+    }
+  };
   const changeImage = (value: number) => {
     if (index + value === images.length) {
       setIndex(0);
@@ -27,20 +53,18 @@ const MatchProfile: React.FC<Props> = ({ profile }: Props) => {
   };
 
   useEffect(() => {
-    if (profile.id == "1" || profile.id == "2") {
-      setImages([picture_of_me1.src, picture_of_me2.src]);
-    }
+    getImages();
   }, [profile]);
 
   return profile ? (
     <div className="flex items-center flex-col w-10/12 justify-center">
-      {default_profile_picture && (
+      {selectedImage && (
         <div>
           <div className="flex justify-center relative h-full mb-10 w-full">
             <div className="absolute left-0 top-0 w-1/2 h-full" onClick={() => changeImage(-1)}></div>
             <div className="image-container bg-black m-auto flex items-center w-full relative align-middle">
               <img
-                src={images[selectedImage]}
+                src={selectedImage}
                 alt={"picture of profile " + profile.name}
                 className="bg-black image-container"
               />

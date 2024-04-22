@@ -1,16 +1,35 @@
+import FileService from "@/services/FileService";
 import { useRouter } from "next/router";
-import defaultProfilePicture from "/public/images/default-profilePicture.jpg";
-import fotoVanMezelf from "/public/images/foto-van-mezelf.jpg";
+import { useEffect, useState } from "react";
 
 type Props = {
   profiles: any[];
 };
 const ProfilesOverviewTable: React.FC<Props> = ({ profiles }: Props) => {
+  const [images, setImages] = useState<any>();
   const router = useRouter();
+
+  const getImages = async (profiles: any[]) => {
+    const images = await Promise.all(
+      profiles.map(async (p) => {
+        if (p.pictures.length > 0) {
+          const i = await FileService.getFile(p.pictures[0]);
+          if (i) return URL.createObjectURL(i);
+        } else {
+          await import("../../public/images/default-profilePicture.jpg");
+        }
+      })
+    );
+    setImages(images);
+  };
+
+  useEffect(() => {
+    getImages(profiles);
+  }, []);
   return (
     <div className="app m-2">
       {profiles &&
-        defaultProfilePicture &&
+        images &&
         profiles.map((p, index) => {
           return (
             <div
@@ -19,7 +38,7 @@ const ProfilesOverviewTable: React.FC<Props> = ({ profiles }: Props) => {
               className="text-md grid grid-cols-4 bg-white bg-opacity-90 pt-1 pb-1 border border-b-1"
             >
               <img
-                src={p.id == "1" || p.id == "2" ? fotoVanMezelf.src : defaultProfilePicture.src}
+                src={images[index]}
                 width={50}
                 height={50}
                 alt={"profile picture of profile with id " + p.id}
