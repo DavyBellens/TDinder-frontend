@@ -9,13 +9,16 @@ type Props = {
 
 const Nav: React.FC<Props> = ({ isLoggedIn, gender, preference }: Props) => {
   return (
-    <nav className="flex justify-evenly gap-3 w-full p-3" role="navigation">
+    <nav className="grid grid-cols-3 p-3" role="navigation">
       {isLoggedIn ? (
         <>
-          <Link href="/options" className={"text-3xl flex items-center font-mono text-red-700 text-opacity-60 "}>
+          <Link
+            href="/options"
+            className={"text-3xl flex justify-center items-center font-mono text-red-700 text-opacity-60 "}
+          >
             ☰
           </Link>
-          <Link href="/" className={"text-4xl"}>
+          <Link href="/" className={"text-4xl flex justify-center"}>
             {preference === "FEMALE" && gender === "WOMAN" && "👩‍❤️‍👩"}
             {preference === "MALE" && gender === "MAN" && "👨‍❤️‍👨"}
             {((preference === "FEMALE" && gender === "MAN") || (preference === "MALE" && gender === "WOMAN")) &&
@@ -27,7 +30,7 @@ const Nav: React.FC<Props> = ({ isLoggedIn, gender, preference }: Props) => {
               preference === "OTHER/SECRET") &&
               "💑"}
           </Link>
-          <Link href="/matches" className={"text-4xl"}>
+          <Link href="/matches" className={"text-4xl flex justify-center"}>
             🔗
           </Link>
         </>
