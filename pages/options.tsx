@@ -4,6 +4,7 @@ import Header from "@/components/header/Header";
 import OptionsComponent from "@/components/profiles/Options";
 import ProfileInfo from "@/components/profiles/ProfileInfo";
 import ProfileService from "@/services/ProfileService";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSWR, { mutate } from "swr";
@@ -27,17 +28,24 @@ const OptionsPage: React.FC = () => {
     mutate("profile", getProfile());
   }, 5000);
   return (
-    <div className="app flex flex-col items-center w-screen">
-      <Header isLoggedIn={!!profile} gender={profile && profile.gender} preference={profile && profile.preference} />
-      {profile ? (
-        <>
-          <ProfileInfo profile={profile} />
-          <OptionsComponent profile={profile} />
-        </>
-      ) : (
-        <AuthError />
-      )}
-      <Footer />
+    <div className="app">
+      <Head>
+        <title>Home</title>
+        <meta name="viewport" content="width=device-with, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main>
+        <Header isLoggedIn={!!profile} gender={profile && profile.gender} preference={profile && profile.preference} />
+        {profile ? (
+          <>
+            <ProfileInfo profile={profile} />
+            <OptionsComponent profile={profile} />
+          </>
+        ) : (
+          <AuthError />
+        )}
+        <Footer />
+      </main>
     </div>
   );
 };

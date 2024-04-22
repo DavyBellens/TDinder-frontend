@@ -8,7 +8,7 @@ type Props = {
 const ProfileInfo: React.FC<Props> = ({ profile }: Props) => {
   const [showing, setShowing] = useState<boolean>(false);
   return (
-    <div className="flex flex-col justify-center items-center w-min sm:p-5 sm:w-screen">
+    <div className="flex flex-col justify-center items-center w-full p-5">
       <h1 className="text-2xl w-max p-5">
         <strong>Your profile</strong>
       </h1>
