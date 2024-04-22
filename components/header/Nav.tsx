@@ -9,7 +9,7 @@ type Props = {
 
 const Nav: React.FC<Props> = ({ isLoggedIn, gender, preference }: Props) => {
   return (
-    <nav className="flex justify-evenly gap-3 w-screen p-3" role="navigation">
+    <nav className="flex justify-evenly gap-3 w-full p-3" role="navigation">
       {isLoggedIn ? (
         <>
           <Link href="/options" className={"text-3xl flex items-center font-mono text-red-700 text-opacity-60 "}>
