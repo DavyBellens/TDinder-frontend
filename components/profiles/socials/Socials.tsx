@@ -10,13 +10,13 @@ type Props = {
 const SocialsForm: React.FC<Props> = ({ socials, callBack, setStage }: Props) => {
   const [instagram, setInstagram] = useState<string>(socials ? socials[0] : "");
   const [facebook, setFacebook] = useState<string>(socials ? socials[1] : "");
-  const [snapchat, setSnapchat] = useState<string>(socials ? socials[2] : "");
-  const [messenger, setMessenger] = useState<string>(socials ? socials[3] : "");
+  const [linkedIn, setLinkedIn] = useState<string>(socials ? socials[2] : "");
+  const [email, setEmail] = useState<string>(socials ? socials[3] : "");
   const [phoneNumber, setPhoneNumber] = useState<string>(socials ? socials[4] : "");
   const [instagramError, setInstagramError] = useState<string>("");
   const [facebookError, setFacebookError] = useState<string>("");
-  const [snapchatError, setSnapchatError] = useState<string>("");
-  const [messengerError, setMessengerError] = useState<string>("");
+  const [linkedInError, setLinkedInError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
   const [phoneNumberError, setPhoneNumberError] = useState<string>("");
   const [error, setError] = useState<string>("");
   const validate = () => {
@@ -30,19 +30,19 @@ const SocialsForm: React.FC<Props> = ({ socials, callBack, setStage }: Props) =>
       setFacebookError("Facebook username can't be longer than 50 characters");
       isValid = false;
     }
-    if (snapchat && snapchat.length > 30) {
-      setSnapchatError("Snapchat username can't be longer than 30 characters");
+    if (linkedIn && linkedIn.length > 100) {
+      setLinkedInError("LinkedIn username can't be longer than 100 characters");
       isValid = false;
     }
-    if (messenger && messenger.length > 50) {
-      setMessengerError("Messenger username can't be longer than 50 characters");
+    if (email && email.length > 50) {
+      setEmailError("Email username can't be longer than 50 characters");
       isValid = false;
     }
-    if (phoneNumber && phoneNumber.replace(" ", "").length > 12) {
-      setPhoneNumberError("Phone number can't be longer than 12 digits");
+    if (phoneNumber && phoneNumber.replace(" ", "").length > 20) {
+      setPhoneNumberError("Phone number can't be longer than 20 digits");
       isValid = false;
     }
-    const socialsList = [instagram, facebook, snapchat, messenger, phoneNumber];
+    const socialsList = [instagram, facebook, linkedIn, email, phoneNumber];
     const empty = socialsList.filter((s) => s == "" || s == undefined);
     if (empty.length === socialsList.length) {
       setError("At least one is required");
@@ -51,7 +51,7 @@ const SocialsForm: React.FC<Props> = ({ socials, callBack, setStage }: Props) =>
     return isValid;
   };
   const handleSubmit = (e: FormEvent) => {
-    const socialsList = [instagram, facebook, snapchat, messenger, phoneNumber];
+    const socialsList = [instagram, facebook, linkedIn, email, phoneNumber];
     e.preventDefault();
     e.stopPropagation();
     if (!validate()) return;
@@ -98,25 +98,25 @@ const SocialsForm: React.FC<Props> = ({ socials, callBack, setStage }: Props) =>
           <InputField
             labelStyle={labelStyle}
             inputStyle={input}
-            callBack={setSnapchat}
-            field="Snapchat"
-            id="snapchatInput"
+            callBack={setLinkedIn}
+            field="LinkedIn"
+            id="linkedInInput"
             type="text"
-            value={snapchat}
+            value={linkedIn}
           />
-          {snapchatError}
+          {linkedInError}
         </div>
         <div className="flex flex-col">
           <InputField
             labelStyle={labelStyle}
             inputStyle={input}
-            callBack={setMessenger}
-            field="Messenger"
-            id="messengerInput"
+            callBack={setEmail}
+            field="Email"
+            id="emailInput"
             type="text"
-            value={messenger}
+            value={email}
           />
-          {messengerError}
+          {emailError}
         </div>
         <div className="flex flex-col">
           <InputField

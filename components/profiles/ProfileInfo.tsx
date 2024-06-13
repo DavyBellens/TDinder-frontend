@@ -71,10 +71,10 @@ const ProfileInfo: React.FC<Props> = ({ profile }: Props) => {
           <strong>Facebook:</strong> {profile.socials[1]}
         </p>
         <p>
-          <strong>Snapchat:</strong> {profile.socials[2]}
+          <strong>LinkedIn:</strong> {profile.socials[2]}
         </p>
         <p>
-          <strong>Messenger:</strong> {profile.socials[3]}
+          <strong>Email:</strong> {profile.socials[3]}
         </p>
         <p>
           <strong>Phone number:</strong> {profile.socials[4]}

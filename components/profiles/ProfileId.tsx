@@ -70,8 +70,8 @@ const ProfileId: React.FC<Props> = ({ profile, images }: Props) => {
         </div>
         <Social name="Instagram" data={profile.socials[0]} />
         <Social name="Facebook" data={profile.socials[1]} />
-        <Social name="Snapchat" data={profile.socials[2]} />
-        <Social name="Messenger" data={profile.socials[3]} />
+        <Social name="LinkedIn" data={profile.socials[2]} />
+        <Social name="Email" data={profile.socials[3]} />
         <Social name="Phone number" data={profile.socials[4]} />
       </div>
     )
