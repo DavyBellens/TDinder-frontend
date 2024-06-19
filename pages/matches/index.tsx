@@ -27,7 +27,8 @@ const Profiles: React.FC = () => {
   const { data, isLoading, error } = useSWR(profile, (p: any) => getMatches(p));
   useInterval(() => {
     if (profile) mutate("matches", getMatches(profile));
-  }, 2000);
+  }, 5000);
+
   const getProfile = async () => {
     const user = sessionStorage.getItem("loggedInUser");
     if (user) {
@@ -42,6 +43,7 @@ const Profiles: React.FC = () => {
   useEffect(() => {
     getProfile();
   }, []);
+
   return (
     <div className="app">
       <Head>

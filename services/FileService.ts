@@ -1,4 +1,6 @@
 import { getToken } from "@/util/token";
+import { NextResponse } from "next/server";
+import { put } from "@vercel/blob";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL + "/files";
 
@@ -16,6 +18,26 @@ const getFile = async (fileName: string) => {
     console.log(error);
   }
 };
+
+export async function POST(req: Request) {
+  const form = await req.formData();
+  const file = form.get("file") as File;
+  if (!file.name) {
+    return NextResponse.json(
+      {
+        error: "no file provided",
+      },
+      {
+        status: 400,
+      }
+    );
+  }
+  const blob = await put(file.name, file, {
+    access: "public",
+  });
+  return Response.json(blob);
+}
+
 
 const uploadFile = async (file: FormData) => {
   const token = getToken();
